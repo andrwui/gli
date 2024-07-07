@@ -1,4 +1,4 @@
-package selectableList
+package list
 
 import (
 	"fmt"
