@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	list "github.com/andrwui/gli/list"
+	selectableList "github.com/andrwui/gli/selectableList"
 )
 
 type Person struct {
@@ -14,9 +14,9 @@ type Person struct {
 
 func main() {
 
-	l := list.NewList[Person]()
+	l := selectableList.NewSelectableList[Person]()
 
-	addElements := func(l *list.List[Person]) {
+	addElements := func(l *selectableList.SelectableList[Person]) {
 		var name string
 		var lastName string
 		var birthday string
@@ -39,7 +39,7 @@ func main() {
 		l.AddItem(a)
 	}
 
-	printD := func(l *list.List[Person]) {
+	printD := func(l *selectableList.SelectableList[Person]) {
 		l.Exit()
 	}
 

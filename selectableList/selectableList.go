@@ -140,6 +140,15 @@ func (l *SelectableList[T]) OnExit(cb func(l *SelectableList[T])) {
 	l.onExitFunc = cb
 }
 
+// Erases the entered quantity of lines from the bottom up.
+func (l *SelectableList[T]) EraseLines(lines int) {
+	for i := 0; i < lines; i++ {
+		fmt.Print("\033[A")
+		fmt.Print("\033[2K")
+	}
+	fmt.Print("\r")
+}
+
 // Displays the list, and checks the user input continuously to execute the respective functions.
 func (l *SelectableList[T]) Display() {
 
