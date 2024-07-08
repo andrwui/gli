@@ -81,8 +81,6 @@ func (l *List[T]) OnKey(key rune, cb func(l *List[T])) {
 // Executes the callback for the entered key.
 func (l *List[T]) execKeybinding(b byte) {
 
-	fmt.Print(b)
-
 	if l.keyBindings[b] != nil {
 		l.keyBindings[b](l)
 	}
@@ -95,11 +93,20 @@ func (l *List[T]) Exit() {
 		l.onExitFunc(l)
 	}
 	l.exited = true
+	fmt.Print("LARECONCHAAAAAAAAAAAAAAAAAAAAAAA")
 }
 
 // Sets the function to be called when the application exits.
 func (l *List[T]) OnExit(cb func(l *List[T])) {
 	l.onExitFunc = cb
+}
+
+func (l *List[T]) EraseLines(lines int) {
+	for i := 0; i < lines; i++ {
+		fmt.Print("\033[A")
+		fmt.Print("\033[2K")
+	}
+	fmt.Print("\r")
 }
 
 // Displays the list, and checks the user input continuously to execute the respective functions.
@@ -110,6 +117,7 @@ func (l *List[T]) Display() {
 		l.render()
 
 		if l.exited {
+			fmt.Print("\033[H\033[2J")
 			return
 		}
 
@@ -157,7 +165,6 @@ func (l *List[T]) render() {
 
 	if l.isHeaderShown {
 		fmt.Printf("   ")
-		fmt.Printf("%-*s", l.fieldSpacing, "Selection")
 		for _, propName := range l.shownFields {
 			fmt.Printf("%-*s", l.fieldSpacing, propName)
 		}

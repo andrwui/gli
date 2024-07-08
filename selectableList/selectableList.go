@@ -129,7 +129,9 @@ func (l *SelectableList[T]) execKeybinding(b byte) {
 
 // Changes the exited state to true, therefore ending the instance of the list.
 func (l *SelectableList[T]) Exit() {
-	l.onExitFunc(l)
+	if l.onExitFunc != nil {
+		l.onExitFunc(l)
+	}
 	l.exited = true
 }
 
@@ -144,6 +146,7 @@ func (l *SelectableList[T]) Display() {
 	for {
 
 		if l.exited {
+			fmt.Print("\033[H\033[2J")
 			return
 		}
 
